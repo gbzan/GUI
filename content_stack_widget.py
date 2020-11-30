@@ -13,6 +13,6 @@ class ContentWidget(QStackedWidget):
             'Show Plot': QPushButton('Soon coming'),
         }
 
-    def command_click(self):
+    #def command_click(self):
 
 

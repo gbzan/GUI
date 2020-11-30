@@ -18,9 +18,12 @@ class FileTreeWidget(QTreeWidget):
         self.command_tree.setHeaderLabel('Commands')
         current_tree_item = self.currentItem()
         if current_tree_item.parent():
-            item = QTreeWidgetItem(['Show Plot'])
+            item1 = QTreeWidgetItem(['Show Plot'])
+            item2 = QTreeWidgetItem(['Show Map'])
+            self.command_tree.addTopLevelItem(item1)
+            self.command_tree.addTopLevelItem(item2)
             self.data.current_datacube = current_tree_item.datacube
         else:
-            item = QTreeWidgetItem(['Select ROI'])
-        self.command_tree.addTopLevelItem(item)
+            item1 = QTreeWidgetItem(['Select ROI'])
+            self.command_tree.addTopLevelItem(item1)
 
