@@ -1,10 +1,10 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QTreeView, QHBoxLayout, QVBoxLayout
 import qdarkstyle
+from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout
 
-from command_tree_view import CommandTreeView
-from file_tree_view import FileTreeView
+from command_tree import CommandTreeWidget
+from data import Data
+from file_tree import FileTreeWidget
 from open_file_button_widget import OpenFileButton
-from state import State
 
 
 class Application(object):
@@ -13,29 +13,27 @@ class Application(object):
         """Initiate an Application object"""
         super().__init__()
 
-        # set up the state object
-        self.state = State()
+        self.data = Data()
+        # set up the file tree and command tree widget
+        self.command_tree_widget = CommandTreeWidget(self.data)
+        self.file_tree_widget = FileTreeWidget(self.command_tree_widget, self.data)
 
         # Generate the widget components of the main window
         self.mainwindow = QWidget()
         self.side_bar = QWidget()
         self.content = QWidget()
-        self.open_file_button = OpenFileButton(self.state, 'Open')
-
-        # create file tree view and content tree view
-        self.file_tree_view = FileTreeView(self.state)
-        self.command_tree_view = CommandTreeView(self.state)
+        self.open_file_button = OpenFileButton(self.file_tree_widget, 'Open', self.data)
 
         # create and set the layout
         self.set_layout_mainwindow()
         self.set_layout_side_bar()
-
+        self.content.setLayout(QVBoxLayout())
         # set size and style
         self.set_style()
 
     def set_style(self):
         self.mainwindow.resize(1024, 768)
-        self.side_bar.setFixedWidth(300)
+        self.side_bar.setFixedWidth(400)
 
     def set_layout_mainwindow(self):
         layout_mainwindow = QHBoxLayout()
@@ -46,8 +44,8 @@ class Application(object):
     def set_layout_side_bar(self):
         layout_side_bar = QVBoxLayout()
         layout_side_bar.addWidget(self.open_file_button)
-        layout_side_bar.addWidget(self.file_tree_view)
-        layout_side_bar.addWidget(self.command_tree_view)
+        layout_side_bar.addWidget(self.file_tree_widget)
+        layout_side_bar.addWidget(self.command_tree_widget)
         self.side_bar.setLayout(layout_side_bar)
 
     def show(self):
