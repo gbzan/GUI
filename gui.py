@@ -2,6 +2,7 @@ import qdarkstyle
 from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout
 
 from command_tree import CommandTreeWidget
+from content_stack_widget import ContentWidget
 from data import Data
 from file_tree import FileTreeWidget
 from open_file_button_widget import OpenFileButton
@@ -21,19 +22,19 @@ class Application(object):
         # Generate the widget components of the main window
         self.mainwindow = QWidget()
         self.side_bar = QWidget()
-        self.content = QWidget()
+        self.content = ContentWidget()
+        self.data.only_content_widget = self.content
         self.open_file_button = OpenFileButton(self.file_tree_widget, 'Open', self.data)
 
         # create and set the layout
         self.set_layout_mainwindow()
         self.set_layout_side_bar()
-        self.content.setLayout(QVBoxLayout())
         # set size and style
         self.set_style()
 
     def set_style(self):
         self.mainwindow.resize(1024, 768)
-        self.side_bar.setFixedWidth(400)
+        self.side_bar.setFixedWidth(320)
 
     def set_layout_mainwindow(self):
         layout_mainwindow = QHBoxLayout()

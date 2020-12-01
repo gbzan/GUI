@@ -5,9 +5,9 @@ from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 
-class PlotMap(QWidget):
+class SelectRoi(QWidget):
 
-    def __init__(self, array: np.array, selector=False):
+    def __init__(self, array: np.array):
         super().__init__()
 
         # Create the plot.
@@ -18,11 +18,13 @@ class PlotMap(QWidget):
 
         # Create the toolbar.
         toolbar = NavigationToolbar(plot, self)
+        save_roi_button = QPushButton('Save ROI')
 
         # Add it to layout.
         layout = QVBoxLayout()
         layout.addWidget(plot)
         layout.addWidget(toolbar)
+        layout.addWidget(save_roi_button)
         self.setLayout(layout)
 
 
