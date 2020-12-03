@@ -7,7 +7,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 class PlotMap(QWidget):
 
-    def __init__(self, array: np.array, selector=False):
+    def __init__(self, array: np.array, file_tree, data):
         super().__init__()
 
         # Create the plot.

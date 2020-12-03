@@ -9,3 +9,4 @@ class RoiTreeItem(QTreeWidgetItem):
         xstart, ystart, xend, yend = roi
         super().__init__([name])
         self.datacube = data.datacube[parent.text(0)][:, ystart:yend, xstart: xend]
+        self.roi = roi

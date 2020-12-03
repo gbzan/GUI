@@ -25,9 +25,11 @@ class FileTreeWidget(QTreeWidget):
             self.command_tree.addTopLevelItem(item2)
             self.command_tree.addTopLevelItem(item3)
             self.data.current_datacube = current_tree_item.datacube
+            self.data.current_roi = current_tree_item.roi
         else:
             item1 = QTreeWidgetItem(['Select ROI'])
             self.command_tree.addTopLevelItem(item1)
+            self.data.current_file_tree_item = current_tree_item
             self.data.current_datacube = self.data.datacube[current_tree_item.text(0)]
             self.data.current_filename = current_tree_item.text(0)
 

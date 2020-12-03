@@ -7,4 +7,6 @@ class Data(object):
         self.current_datacube = None
         self.current_filename = None
         self.only_content_widget = None
+        self.current_file_tree_item = None
+        self.current_roi = None
         self.content_widget_container = {}

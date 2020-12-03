@@ -19,9 +19,9 @@ class ContentWidget(QStackedWidget):
         if not command_dic[command]:
             print('New Command needed to be added')
             return
-        key = (data.current_filename, command)
+        key = (data.current_roi, command)
         if key not in data.content_widget_container:
-            widget = command_dic[command](data.current_datacube)
+            widget = command_dic[command](data.current_datacube, data.current_file_tree_item, data)
             data.content_widget_container[key] = widget
             self.addWidget(widget)
         else:
