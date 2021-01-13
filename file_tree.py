@@ -19,8 +19,8 @@ class FileTreeWidget(QTreeWidget):
         current_tree_item = self.currentItem()
         if current_tree_item.parent():
             item1 = QTreeWidgetItem(['Show Map'])
-            item2 = QTreeWidgetItem(['Show Plot'])
-            item3 = QTreeWidgetItem(['Show Average Plot'])
+            item2 = QTreeWidgetItem(['Show Sine Curve'])
+            item3 = QTreeWidgetItem(['Show Visibility Map'])
             self.command_tree.addTopLevelItem(item1)
             self.command_tree.addTopLevelItem(item2)
             self.command_tree.addTopLevelItem(item3)

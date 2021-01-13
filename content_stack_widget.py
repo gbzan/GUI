@@ -13,8 +13,8 @@ class ContentWidget(QStackedWidget):
         command_dic = {
             'Select ROI': SelectRoi,
             'Show Map': PlotMap,
-            'Show Plot': PlotMap,
-            'Show Average Plot': PlotMap,
+            'Show Sine Curve': PlotMap,
+            'Show Visibility Map': PlotMap,
         }
         if not command_dic[command]:
             print('New Command needed to be added')
