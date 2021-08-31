@@ -21,6 +21,7 @@ class SelectRoi(QWidget):
         figure, axes = plt.subplots(1, 1)
         axes.imshow(array[0, :, :], interpolation='nearest')
         figure.set_facecolor("grey")
+        select_canvas = FigureCanvas(figure)
         figure.canvas.mpl_connect('rectangle_select_event', self.anything)
         self.anything.RS = RectangleSelector(
             axes, self.rectangle_select_callback,
@@ -38,7 +39,7 @@ class SelectRoi(QWidget):
 
         # Add it to layout.
         layout = QVBoxLayout()
-        layout.addWidget(figure.canvas)
+        layout.addWidget(select_canvas)
         layout.addWidget(toolbar)
         layout.addWidget(save_roi_button)
         self.setLayout(layout)
@@ -66,4 +67,3 @@ class SelectRoi(QWidget):
     @staticmethod
     def anything(event):
         pass
-
