@@ -28,8 +28,8 @@ class OpenFileButton(QPushButton):
             # generate the datacube and save into Data class
             with h5py.File(file_dir, 'r') as f:
                 datacube = np.asarray(f['/exchange/data'])
-            x_len = len(datacube[0, :, 0])
-            y_len = len(datacube[0, 0, :])
+            y_len = len(datacube[0, :, 0])
+            x_len = len(datacube[0, 0, :])
             self.data.datacube[file_name] = datacube
             self.data.file_dir[file_name] = file_dir
             whole_map_tree_item = RoiTreeItem(item, self.data, name='Whole Map', roi=(0, 0, x_len+1, y_len+1))
