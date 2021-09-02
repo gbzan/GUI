@@ -23,4 +23,6 @@ class CommandTreeWidget(QTreeWidget):
             item, ok = box.getItem(self, 'Input pixel number', 'Select pixel number',selections, 0, False)
             if ok:
                 pixel_num = int(item)
+            else:
+                pixel_num = 5
         self.data.only_content_widget.command_click(self.data, command, pixel_num)
