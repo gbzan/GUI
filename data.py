@@ -10,3 +10,4 @@ class Data(object):
         self.current_file_tree_item = None
         self.current_roi = None
         self.content_widget_container = {}
+        self.darkcount = 300

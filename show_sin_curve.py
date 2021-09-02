@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.optimize
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
@@ -12,8 +13,10 @@ class ShowSinCurve(QWidget):
         self.pixel_num = pixel_num
         self.data = data
         self.create_sin_curve()
+
     
     def create_sin_curve(self):
+        # get original data scatter
         datacube = self.data.current_datacube
         y_len = len(datacube[0, :, 0])
         x_len = len(datacube[0, 0, :])
@@ -29,19 +32,50 @@ class ShowSinCurve(QWidget):
                 for k in range(x_start, x_end):
                     intensity += datacube[i, j, k]
             result.append(intensity)
-        figure, axes = plt.subplots(1, 1)
-        axes.scatter(range(z_len), result)
-        axes.set_xlabel('frame')
-        axes.set_ylabel('counts')
-        axes.set_title(f'Sine Curve Fitting (center {2*self.pixel_num} pixels)')
+        
+        # get the fitting of raw data (refer 'PS_VisibilityMap_mp.py')
+        def fit_sin(tt, yy):
+            '''Fit sin to the input time sequence, and return fitting parameters "amp", "omega", "phase", "offset", "freq", "period" and "fitfunc"'''
+            tt = np.array(range(z_len))
+            yy = np.array(result)
+            ff = np.fft.fftfreq(len(tt), (tt[1] - tt[0]))  # assume uniform spacing
+            Fyy = abs(np.fft.fft(yy))
+            guess_freq = abs(ff[np.argmax(Fyy[1:]) + 1])  # excluding the zero frequency "peak", which is related to offset
+            guess_amp = np.std(yy) * 2. ** 0.5
+            guess_offset = np.mean(yy)
+            guess = np.array([guess_amp, 2. * np.pi * guess_freq, 0., guess_offset])
 
-        plot = FigureCanvas(figure)
+            def sinfunc(t, A, w, p, c):  return A * np.sin(w * t + p) + c
+
+            popt, pcov = scipy.optimize.curve_fit(sinfunc, tt, yy, p0=guess, maxfev=100)
+            # A, w, p, c = popt
+            # f = w / (2. * np.pi)
+            # fitfunc = lambda t: A * np.sin(w * t + p) + c
+            return popt
+
+        # Plot two sets of data in one figure
+        figure, axes = plt.subplots(1, 1)
+        axes.scatter(range(z_len), result, label='Stepping point', color='red')
+        x_dimension = np.linspace(0, z_len, 100)
+        A, w, p, c = fit_sin(range(z_len), result)
+        fitfunc = lambda t: A * np.sin(w * t + p) + c
+        FitPSCurve = fitfunc(x_dimension)
+        darkcount = self.data.darkcount
+        visibility = ((np.max(FitPSCurve) - darkcount) - (np.min(FitPSCurve) - darkcount)) / (
+            (np.max(FitPSCurve) - darkcount) + (np.min(FitPSCurve) - darkcount))
+        axes.plot(x_dimension, fitfunc(x_dimension), label='Fitting phase stepping curve')
+        axes.set_xlabel('steppings')
+        axes.set_ylabel('counts')
+        axes.legend()
+        axes.set_title(f'(center {2*self.pixel_num} pixels) Fitted Visibility={100*visibility:.2f}%')
+
+        plot_canvas = FigureCanvas(figure)
 
         # Create the toolbar.
-        toolbar = NavigationToolbar(plot, self)
+        toolbar = NavigationToolbar(plot_canvas, self)
 
         # Add it to layout.
         layout = QVBoxLayout()
-        layout.addWidget(plot)
+        layout.addWidget(plot_canvas)
         layout.addWidget(toolbar)
         self.setLayout(layout)
