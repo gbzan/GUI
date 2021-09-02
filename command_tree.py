@@ -20,7 +20,7 @@ class CommandTreeWidget(QTreeWidget):
             selections = ['5', '10', '15', '20']
             box = QInputDialog()
             # box.resize(800, 100)
-            item, ok = box.getItem(self, 'Input pixel number', 'Select pixel number',selections, 0, False)
+            item, ok = box.getItem(self, 'Input pixel number', 'Select pixel number',selections, 0)
             if ok:
                 pixel_num = int(item)
             else:

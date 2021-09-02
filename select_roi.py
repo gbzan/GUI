@@ -20,7 +20,7 @@ class SelectRoi(QWidget):
         # Create the plot.
         figure, axes = plt.subplots(1, 1)
         axes.imshow(array[0, :, :], interpolation='nearest')
-        figure.set_facecolor("#8ccce3")
+        figure.set_facecolor("#C9e8f1")
         select_canvas = FigureCanvas(figure)
         figure.canvas.mpl_connect('rectangle_select_event', self.anything)
         self.anything.RS = RectangleSelector(

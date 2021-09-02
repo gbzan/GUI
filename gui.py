@@ -5,6 +5,7 @@ from content_stack_widget import ContentWidget
 from data import Data
 from file_tree import FileTreeWidget
 from open_file_button_widget import OpenFileButton
+from setting_button import SettingButton
 
 
 class Application(object):
@@ -23,11 +24,14 @@ class Application(object):
         self.side_bar = QWidget()
         self.content = ContentWidget()
         self.data.only_content_widget = self.content
-        self.open_file_button = OpenFileButton(self.file_tree_widget, 'Open', self.data)
+        self.buttons = QWidget()
+        self.open_file_button = OpenFileButton(self.file_tree_widget, 'Open File', self.data)
+        self.setting_button = SettingButton('Darkcounts', self.data)
 
         # create and set the layout
         self.set_layout_mainwindow()
         self.set_layout_side_bar()
+        self.set_layout_buttons()
         # set size and style
         self.set_style()
 
@@ -43,10 +47,16 @@ class Application(object):
 
     def set_layout_side_bar(self):
         layout_side_bar = QVBoxLayout()
-        layout_side_bar.addWidget(self.open_file_button)
+        layout_side_bar.addWidget(self.buttons)
         layout_side_bar.addWidget(self.file_tree_widget)
         layout_side_bar.addWidget(self.command_tree_widget)
         self.side_bar.setLayout(layout_side_bar)
+
+    def set_layout_buttons(self):
+        layout_buttons = QHBoxLayout()
+        layout_buttons.addWidget(self.open_file_button)
+        layout_buttons.addWidget(self.setting_button)
+        self.buttons.setLayout(layout_buttons)
 
     def show(self):
         self.mainwindow.show()

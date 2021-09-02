@@ -66,7 +66,7 @@ class ShowSinCurve(QWidget):
         axes.plot(x_dimension, fitfunc(x_dimension), label='Fitting phase stepping curve')
         axes.set_xlabel('steppings')
         axes.set_ylabel('counts')
-        axes.legend()
+        axes.legend(shadow=True)
         axes.set_title(f'(center {2*self.pixel_num} pixels) Fitted Visibility={100*visibility:.2f}%')
 
         plot_canvas = FigureCanvas(figure)

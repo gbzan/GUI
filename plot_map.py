@@ -16,7 +16,7 @@ class PlotMap(QWidget):
         axes.set_xlabel('X-position /pixel')
         axes.set_ylabel('Y-position /pixel')
         axes.set_title('Intensity Map')
-        figure.set_facecolor("#8ccce3")
+        figure.set_facecolor("#C9e8f1")
         plot = FigureCanvas(figure)
 
         # Create the toolbar.
