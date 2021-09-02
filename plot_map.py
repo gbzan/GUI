@@ -13,7 +13,10 @@ class PlotMap(QWidget):
         # Create the plot.
         figure, axes = plt.subplots(1, 1)
         axes.imshow(array[0, :, :], interpolation='nearest')
-        figure.set_facecolor("grey")
+        axes.set_xlabel('X-position /pixel')
+        axes.set_ylabel('Y-position /pixel')
+        axes.set_title('Intensity Map')
+        figure.set_facecolor("#8ccce3")
         plot = FigureCanvas(figure)
 
         # Create the toolbar.

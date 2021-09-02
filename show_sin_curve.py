@@ -31,6 +31,9 @@ class ShowSinCurve(QWidget):
             result.append(intensity)
         figure, axes = plt.subplots(1, 1)
         axes.scatter(range(z_len), result)
+        axes.set_xlabel('frame')
+        axes.set_ylabel('counts')
+        axes.set_title('Sine Curve Fitting')
 
         plot = FigureCanvas(figure)
 
