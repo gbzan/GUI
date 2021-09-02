@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTreeWidget
+from PyQt5.QtWidgets import QWidget, QTreeWidget, QInputDialog
 
 from content_stack_widget import ContentWidget
 from data import Data
@@ -15,8 +15,12 @@ class CommandTreeWidget(QTreeWidget):
 
     def handle_command_tree_click(self):
         command = self.currentItem().text(0)
-        self.data.only_content_widget.command_click(self.data, command)
-
-
-
-
+        pixel_num = 0
+        if command == 'Show Sine Curve':
+            selections = ['5', '10', '15', '20']
+            box = QInputDialog()
+            # box.resize(800, 100)
+            item, ok = box.getItem(self, 'Input pixel number', 'Select pixel number',selections, 0, False)
+            if ok:
+                pixel_num = int(item)
+        self.data.only_content_widget.command_click(self.data, command, pixel_num)

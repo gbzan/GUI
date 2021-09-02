@@ -10,7 +10,7 @@ from roi_treeitem import RoiTreeItem
 
 class SelectRoi(QWidget):
 
-    def __init__(self, array: np.array, file_tree, data: Data):
+    def __init__(self, array: np.array, file_tree, data: Data, pixel_num):
         super().__init__()
 
         self.current_tree = file_tree

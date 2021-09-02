@@ -1,6 +1,5 @@
 import qdarkstyle
 from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QVBoxLayout
-
 from command_tree import CommandTreeWidget
 from content_stack_widget import ContentWidget
 from data import Data
