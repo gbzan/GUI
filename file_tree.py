@@ -23,19 +23,28 @@ class FileTreeWidget(QTreeWidget):
             self.data.current_file_tree_item = current_tree_item
             self.data.current_datacube = self.data.datacube[current_tree_item.text(0)]
             self.data.current_filename = current_tree_item.text(0)
-        elif current_tree_item.text(0) == 'Whole Map':
+            return
+        if current_tree_item.text(0) == 'Whole Map':
             item1 = QTreeWidgetItem(['Show Map'])
             item2 = QTreeWidgetItem(['Show Sine Curve'])
             self.command_tree.addTopLevelItem(item1)
             self.command_tree.addTopLevelItem(item2)
-            self.data.current_filename = current_tree_item.parent_name
-            self.data.current_datacube = current_tree_item.datacube
-            self.data.current_roi = current_tree_item.roi
-        else:
+        elif current_tree_item.vis_map is None:
             item1 = QTreeWidgetItem(['Show Map'])
-            item2 = QTreeWidgetItem(['Show Visibility Map'])
+            item2 = QTreeWidgetItem(['Calculate Visibility'])
             self.command_tree.addTopLevelItem(item1)
             self.command_tree.addTopLevelItem(item2)
-            self.data.current_filename = current_tree_item.parent_name
-            self.data.current_datacube = current_tree_item.datacube
-            self.data.current_roi = current_tree_item.roi
+        else:
+            item1 = QTreeWidgetItem(['Show Map'])
+            item2 = QTreeWidgetItem(['Calculate Visibility'])
+            self.command_tree.addTopLevelItem(item1)
+            self.command_tree.addTopLevelItem(item2)
+            vis_map_child = QTreeWidgetItem(['Show Visibility Map'])
+            vis_distribution_child = QTreeWidgetItem(['Show Visibility Distribution'])
+            item2.addChild(vis_map_child)
+            item2.addChild(vis_distribution_child)
+            item2.setExpanded(True)
+        self.data.current_file_tree_item = current_tree_item
+        self.data.current_filename = current_tree_item.parent_name
+        self.data.current_datacube = current_tree_item.datacube
+        self.data.current_roi = current_tree_item.roi

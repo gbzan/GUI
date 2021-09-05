@@ -11,3 +11,4 @@ class RoiTreeItem(QTreeWidgetItem):
         self.datacube = data.datacube[parent.text(0)][:, ystart:yend, xstart: xend]
         self.roi = roi
         self.parent_name = parent.text(0)
+        self.vis_map = None

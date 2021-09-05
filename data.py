@@ -11,3 +11,4 @@ class Data(object):
         self.current_roi = None
         self.content_widget_container = {}
         self.darkcount = 300
+        self.core_num = 3

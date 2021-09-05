@@ -3,6 +3,8 @@ from data import Data
 from plot_map import PlotMap
 from select_roi import SelectRoi
 from show_sin_curve import ShowSinCurve
+from show_vis_map import ShowVisMap
+# from show_vis_distribution import ShowVisDistribution
 
 
 class ContentWidget(QStackedWidget):
@@ -15,7 +17,8 @@ class ContentWidget(QStackedWidget):
             'Select ROI': SelectRoi,
             'Show Map': PlotMap,
             'Show Sine Curve': ShowSinCurve,
-            'Show Visibility Map': PlotMap,
+            'Show Visibility Map': ShowVisMap,
+            'Show Visibility Distribution': PlotMap #ShowVisDistribution,
         }
         key = (data.current_filename, data.current_roi, command, pixel_num)
         if key not in data.content_widget_container:
