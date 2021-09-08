@@ -1,3 +1,5 @@
+import multiprocessing
+
 class Data(object):
 
     def __init__(self):
@@ -11,4 +13,4 @@ class Data(object):
         self.current_roi = None
         self.content_widget_container = {}
         self.darkcount = 300
-        self.core_num = 3
+        self.core_num = int(multiprocessing.cpu_count() * 0.8)
