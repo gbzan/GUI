@@ -48,9 +48,6 @@ class ShowSinCurve(QWidget):
             def sinfunc(t, A, w, p, c):  return A * np.sin(w * t + p) + c
 
             popt, pcov = scipy.optimize.curve_fit(sinfunc, tt, yy, p0=guess, maxfev=100)
-            # A, w, p, c = popt
-            # f = w / (2. * np.pi)
-            # fitfunc = lambda t: A * np.sin(w * t + p) + c
             return popt
 
         # Plot two sets of data in one figure

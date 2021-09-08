@@ -8,3 +8,4 @@ h5py~=3.1.0
 
 matplotlib~=3.3.3
 scipy=1.7.1
+lmfit=1.0.2
