@@ -1,5 +1,7 @@
 from data import Data
-from PyQt5.QtWidgets import QPushButton, QInputDialog
+from PyQt5.QtWidgets import QInputDialog, QPushButton
+from setting_window import SettingWindow
+from PyQt5.QtCore import Qt
 
 
 class SettingButton(QPushButton):
@@ -10,10 +12,5 @@ class SettingButton(QPushButton):
         self.clicked.connect(self.handle_click_setting_button)
     
     def handle_click_setting_button(self):
-        text, ok = QInputDialog().getText(self, "Input Darkcounts",
-                                     "Darkcounts:")
-        if ok and text:
-            self.data.darkcount = int(text)
-            print(self.data.darkcount)
-        else:
-            print("didn't change")
+        setting_window = SettingWindow(self.data)
+        setting_window.exec()

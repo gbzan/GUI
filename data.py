@@ -1,3 +1,5 @@
+import multiprocessing
+
 class Data(object):
 
     def __init__(self):
@@ -12,3 +14,4 @@ class Data(object):
         self.content_widget_container = {}
         self.darkcount = 300
         self.core_percent = 0.8
+        self.core_num = int(self.core_percent * multiprocessing.cpu_count())

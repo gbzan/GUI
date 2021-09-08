@@ -26,7 +26,7 @@ class Application(object):
         self.data.only_content_widget = self.content
         self.buttons = QWidget()
         self.open_file_button = OpenFileButton(self.file_tree_widget, 'Open File', self.data)
-        self.setting_button = SettingButton('Darkcounts', self.data)
+        self.setting_button = SettingButton('Settings', self.data)
 
         # create and set the layout
         self.set_layout_mainwindow()
