@@ -43,7 +43,7 @@ def get_vis_map(data: Data):
     for i in range(y_len):
         for j in range(x_len):
             all_points.append((i, j))
-    with mp.Pool(processes=data.core_num) as pool:
+    with mp.Pool(processes=int(data.core_percent*mp.cpu_count())) as pool:
         result = pool.starmap(get_visibility_from_one_pixel, [(datacube, *point, data.darkcount) for point in all_points])
     vis_map = np.zeros((y_len, x_len))
     for element in result:
