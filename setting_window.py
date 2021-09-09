@@ -4,17 +4,6 @@ from PyQt5.QtGui import QIntValidator, QDoubleValidator
 from data import Data
 from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QWidget
 
-class ClickableLineEdit(QLineEdit):
-    clicked = QtCore.pyqtSignal()
-    def __init__(self):
-        super().__init__()
-        self.clicked.connect(self.clear_text)
-    def mousePressEvent(self, QMouseEvent):
-        self.clicked.emit()
-    def clear_text(self):
-        self.clear()
-        self.setStyleSheet('font-size:14px')
-
 
 class SettingWindow(QDialog):
     def __init__(self, data: Data, parent=None):
@@ -23,14 +12,16 @@ class SettingWindow(QDialog):
         self.data = data
         # generate all widgets for the setting window
         self.darkcounts_widget = QWidget()
-        self.darkcounts_box = ClickableLineEdit()
+        self.darkcounts_box = QLineEdit()
+        self.darkcounts_box.setPlaceholderText('Integer only')
         self.darkcounts_label = QLabel()
-        # self.set_darkcounts_style()
+        self.set_darkcounts_style()
 
         self.core_percent_widget = QWidget()
-        self.core_percent_box = ClickableLineEdit()
+        self.core_percent_box = QLineEdit()
+        self.core_percent_box.setPlaceholderText('Decimal Number from 0-1')
         self.core_percent_label = QLabel()
-        # self.set_core_percent_style()
+        self.set_core_percent_style()
 
         self.button_box = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
 
@@ -52,16 +43,12 @@ class SettingWindow(QDialog):
         self.darkcounts_label.setFixedWidth(200)
         self.darkcounts_label.setText('<html><ul><li>Dark Counts</li></ul></html>')
         self.darkcounts_label.setStyleSheet('font-size:14px; font-weight:bold')
-        self.darkcounts_box.setText('Integer only')
-        self.darkcounts_box.setStyleSheet('color:grey; font-size:13px')
         self.darkcounts_box.setValidator(QIntValidator())
 
     def set_core_percent_style(self):
         self.core_percent_label.setFixedWidth(200)
         self.core_percent_label.setText('<html><ul><li>Core Usage Percent</li></ul></html>')
         self.core_percent_label.setStyleSheet('font-size:14px; font-weight:bold')
-        self.core_percent_box.setText('Decimal Number from 0-1')
-        self.core_percent_box.setStyleSheet('color:grey; font-size:13px')
         self.core_percent_box.setValidator(QDoubleValidator())
 
     def set_darkcounts_layout(self):
