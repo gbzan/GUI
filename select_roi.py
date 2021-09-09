@@ -1,5 +1,5 @@
 import numpy as np
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QInputDialog
+from PyQt5.QtWidgets import QMessageBox, QWidget, QVBoxLayout, QPushButton, QInputDialog
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
@@ -62,7 +62,13 @@ class SelectRoi(QWidget):
         ok = box.exec_()
         roi_name = box.textValue()
         if ok:
-            parent.addChild(RoiTreeItem(parent, self.data, roi_name, self.selected_pixels))
+            if roi_name in self.data.roi_names:
+                message_box = QMessageBox()
+                message_box.setText('Name existed! Please give it an unique name.')
+                message_box.exec()
+            else:
+                parent.addChild(RoiTreeItem(parent, self.data, roi_name, self.selected_pixels))
+                self.data.roi_names.add(roi_name)
 
     @staticmethod
     def anything(event):

@@ -15,3 +15,4 @@ class Data(object):
         self.darkcount = 300
         self.core_percent = 0.8
         self.core_num = int(self.core_percent * multiprocessing.cpu_count())
+        self.roi_names = set()
