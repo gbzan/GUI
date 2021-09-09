@@ -29,7 +29,13 @@ class FileTreeWidget(QTreeWidget):
             item2 = QTreeWidgetItem(['Show Sine Curve'])
             self.command_tree.addTopLevelItem(item1)
             self.command_tree.addTopLevelItem(item2)
-        elif current_tree_item.vis_map is None:
+            self.data.current_file_tree_item = current_tree_item
+            self.data.current_filename = current_tree_item.parent_name
+            self.data.current_datacube = current_tree_item.datacube
+            self.data.current_roi = current_tree_item.roi
+            self.data.only_content_widget.command_click(self.data, 'Show Map', 0)
+            return
+        if current_tree_item.vis_map is None:
             item1 = QTreeWidgetItem(['Show Map'])
             item2 = QTreeWidgetItem(['Calculate Visibility'])
             self.command_tree.addTopLevelItem(item1)
@@ -48,3 +54,4 @@ class FileTreeWidget(QTreeWidget):
         self.data.current_filename = current_tree_item.parent_name
         self.data.current_datacube = current_tree_item.datacube
         self.data.current_roi = current_tree_item.roi
+        self.data.only_content_widget.command_click(self.data, 'Show Map', 0)
