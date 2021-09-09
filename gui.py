@@ -36,7 +36,7 @@ class Application(object):
         self.set_style()
 
     def set_style(self):
-        self.mainwindow.resize(1024, 768)
+        self.mainwindow.resize(1200, 768)
         self.side_bar.setFixedWidth(320)
 
     def set_layout_mainwindow(self):

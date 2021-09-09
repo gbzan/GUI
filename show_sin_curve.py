@@ -8,10 +8,11 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 class ShowSinCurve(QWidget):
     
-    def __init__(self, array: np.array, file_tree, data: Data, pixel_num):
+    def __init__(self, array: np.array, file_tree, data: Data):
         super().__init__()
         
-        self.pixel_num = pixel_num
+        self.current_file = file_tree
+        self.pixel_num = self.current_file.pixel_num
         self.data = data
         self.create_sin_curve()
 
@@ -73,12 +74,6 @@ class ShowSinCurve(QWidget):
         toolbar = NavigationToolbar(plot_canvas, self)
         change_pixel_button = QPushButton('Change pixel number')
         change_pixel_button.clicked.connect(self.handle_change_click)
-        # bottom_widget = QWidget()
-        # bottom_layout = QHBoxLayout()
-        # bottom_layout.addWidget(toolbar)
-        # bottom_layout.addWidget(change_pixel_button)
-        # bottom_widget.setLayout(bottom_layout)
-        # bottom_widget.setMaximumHeight(70)
 
         # Add it to layout.
         layout = QVBoxLayout()
@@ -92,5 +87,5 @@ class ShowSinCurve(QWidget):
         box = QInputDialog()
         item, ok = box.getItem(self, 'Input pixel number', 'Select pixel number',selections, 0) #last arguments is the index of current show item
         if ok:
-            pixel_num = int(item)
-            self.data.only_content_widget.command_click(self.data, 'Show Sine Curve', pixel_num)
+            self.current_file.pixel_num = int(item)
+            self.data.only_content_widget.command_click(self.data, 'Show Sine Curve')

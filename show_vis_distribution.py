@@ -7,7 +7,7 @@ from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 class ShowVisDistribution(QWidget):
-    def __init__(self, current_datacube, current_file_tree_item, data, pixel_num):
+    def __init__(self, current_datacube, current_file_tree_item, data):
         super().__init__()
         all_visibility = current_file_tree_item.vis_map.flatten()
         smallest_vis, biggest_vis = np.ndarray.min(all_visibility), np.ndarray.max(all_visibility)

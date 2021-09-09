@@ -1,4 +1,3 @@
-import numpy as np
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
 import matplotlib.pyplot as plt
 from data import Data
@@ -7,7 +6,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
 class ShowVisMap(QWidget):
-    def __init__(self, current_datacube, current_file_tree_item, data, pixel_num):
+    def __init__(self, current_datacube, current_file_tree_item, data: Data):
         super().__init__()
 
         # Create the plot.

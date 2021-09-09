@@ -12,3 +12,4 @@ class RoiTreeItem(QTreeWidgetItem):
         self.roi = roi
         self.parent_name = parent.text(0)
         self.vis_map = None
+        self.pixel_num = 5

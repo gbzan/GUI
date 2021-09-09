@@ -9,7 +9,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 class PlotMap(QWidget):
 
-    def __init__(self, array: np.array, file_tree, data: Data, pixel_num):
+    def __init__(self, array: np.array, file_tree, data: Data):
         super().__init__()
         x_offset, y_offset = data.current_roi[0], data.current_roi[1]
         x_len = len(data.current_datacube[0, 0, :])  
