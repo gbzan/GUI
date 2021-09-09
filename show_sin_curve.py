@@ -1,13 +1,14 @@
+from data import Data
 import numpy as np
 import scipy.optimize
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QPushButton, QInputDialog
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 class ShowSinCurve(QWidget):
     
-    def __init__(self, array: np.array, file_tree, data, pixel_num):
+    def __init__(self, array: np.array, file_tree, data: Data, pixel_num):
         super().__init__()
         
         self.pixel_num = pixel_num
@@ -68,11 +69,28 @@ class ShowSinCurve(QWidget):
 
         plot_canvas = FigureCanvas(figure)
 
-        # Create the toolbar.
+        # Create toolbar and change_pixel_button.
         toolbar = NavigationToolbar(plot_canvas, self)
+        change_pixel_button = QPushButton('Change pixel number')
+        change_pixel_button.clicked.connect(self.handle_change_click)
+        # bottom_widget = QWidget()
+        # bottom_layout = QHBoxLayout()
+        # bottom_layout.addWidget(toolbar)
+        # bottom_layout.addWidget(change_pixel_button)
+        # bottom_widget.setLayout(bottom_layout)
+        # bottom_widget.setMaximumHeight(70)
 
         # Add it to layout.
         layout = QVBoxLayout()
         layout.addWidget(plot_canvas)
         layout.addWidget(toolbar)
+        layout.addWidget(change_pixel_button)
         self.setLayout(layout)
+
+    def handle_change_click(self):
+        selections = ['5', '10', '15', '20']
+        box = QInputDialog()
+        item, ok = box.getItem(self, 'Input pixel number', 'Select pixel number',selections, 0) #last arguments is the index of current show item
+        if ok:
+            pixel_num = int(item)
+            self.data.only_content_widget.command_click(self.data, 'Show Sine Curve', pixel_num)

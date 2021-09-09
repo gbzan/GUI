@@ -33,7 +33,7 @@ class FileTreeWidget(QTreeWidget):
             self.data.current_filename = current_tree_item.parent_name
             self.data.current_datacube = current_tree_item.datacube
             self.data.current_roi = current_tree_item.roi
-            self.data.only_content_widget.command_click(self.data, 'Show Map', 0)
+            self.data.only_content_widget.command_click(self.data, 'Show Map', 5)   #pixel_num is 10 by default
             return
         if current_tree_item.vis_map is None:
             item1 = QTreeWidgetItem(['Show Map'])
@@ -54,4 +54,4 @@ class FileTreeWidget(QTreeWidget):
         self.data.current_filename = current_tree_item.parent_name
         self.data.current_datacube = current_tree_item.datacube
         self.data.current_roi = current_tree_item.roi
-        self.data.only_content_widget.command_click(self.data, 'Show Map', 0)
+        self.data.only_content_widget.command_click(self.data, 'Show Map', 5)
