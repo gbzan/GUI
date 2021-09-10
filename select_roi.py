@@ -1,3 +1,4 @@
+from logging import error
 import numpy as np
 from PyQt5.QtWidgets import QMessageBox, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QInputDialog, QLabel, QSlider
 import matplotlib.pyplot as plt
@@ -86,11 +87,17 @@ class SelectRoi(QWidget):
         box.setInputMode(QInputDialog.TextInput)
         ok = box.exec_()
         roi_name = box.textValue()
+        # def show_box(self, button):
+        #     box.exec_()
         if ok:
             if roi_name in self.data.roi_names:
-                message_box = QMessageBox()
-                message_box.setText('Name existed! Please give it an unique name.')
-                message_box.exec()
+                QMessageBox.critical(box, 'Error','Name existed! Please give it an unique name.')
+                # error_box = QMessageBox()
+                # error_box.setWindowTitle('Error')
+                # error_box.setText('Name existed! Please give it an unique name.')
+                # error_box.setIcon(error_box.Critical)
+                # error_box.exec_()
+                # error_box.buttonClicked.connect(show_box)
             else:
                 parent.addChild(RoiTreeItem(parent, self.data, roi_name, self.selected_pixels))
                 self.data.roi_names.add(roi_name)
