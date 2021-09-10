@@ -2,7 +2,6 @@ from logging import error
 import numpy as np
 from PyQt5.QtWidgets import QMessageBox, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QInputDialog, QLabel, QSlider
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.widgets import RectangleSelector
 from data import Data
@@ -49,6 +48,7 @@ class SelectRoi(QWidget):
 
         def slider_update(val):
             label_widget.setText(str(val))
+            axes.cla()
             axes.imshow(array[val, :, :], interpolation='nearest')
             select_canvas.draw()
         step_slider.valueChanged.connect(slider_update)

@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from data import Data
 import numpy as np
 from lmfit.models import GaussianModel
-from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 class ShowVisDistribution(QWidget):

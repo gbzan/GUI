@@ -3,7 +3,6 @@ import numpy as np
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QSlider, QWidget, QVBoxLayout, QPushButton
 import matplotlib.pyplot as plt
 from data import Data
-from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from PyQt5.QtCore import Qt
 
@@ -40,6 +39,7 @@ class PlotMap(QWidget):
 
         def slider_update(val):
             label_widget.setText(str(val))
+            axes.cla()
             axes.imshow(array[val, :, :], interpolation='nearest', extent=[x_offset, x_offset+x_len-1, y_offset+y_len-1, y_offset])
             plot.draw()
         step_slider.valueChanged.connect(slider_update)

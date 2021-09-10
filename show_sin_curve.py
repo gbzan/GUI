@@ -3,7 +3,6 @@ import numpy as np
 import scipy.optimize
 from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QPushButton, QInputDialog
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 
 class ShowSinCurve(QWidget):
