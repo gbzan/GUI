@@ -1,11 +1,12 @@
 import numpy as np
-from PyQt5.QtWidgets import QMessageBox, QWidget, QVBoxLayout, QPushButton, QInputDialog
+from PyQt5.QtWidgets import QMessageBox, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QInputDialog, QLabel, QSlider
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_template import FigureCanvas
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.widgets import RectangleSelector
 from data import Data
 from roi_treeitem import RoiTreeItem
+from PyQt5.QtCore import Qt
 
 
 class SelectRoi(QWidget):
@@ -17,6 +18,7 @@ class SelectRoi(QWidget):
         self.data = data
         self.array = array
         self.selected_pixels = None
+
         # Create the plot.
         figure, axes = plt.subplots(1, 1)
         axes.imshow(array[0, :, :], interpolation='nearest')
@@ -33,6 +35,28 @@ class SelectRoi(QWidget):
             rectprops=dict(facecolor='white', edgecolor='black', linewidth=5, alpha=0.2, fill=True),
         )
 
+        # Add the slider
+        slider_widget = QWidget()
+        slider_widget.setFixedHeight(40)
+        label_widget = QLabel('0')
+        step_slider = QSlider(Qt.Horizontal)
+        step_slider.setRange(0, len(self.array)-1)
+        step_slider.setFocusPolicy(Qt.StrongFocus)
+        step_slider.setTickPosition(QSlider.TicksAbove)
+        step_slider.setTickInterval(1)
+        step_slider.setSingleStep(1)
+
+        def slider_update(val):
+            label_widget.setText(str(val))
+            axes.imshow(array[val, :, :], interpolation='nearest')
+            select_canvas.draw()
+        step_slider.valueChanged.connect(slider_update)
+
+        slider_layout = QHBoxLayout()
+        slider_layout.addWidget(step_slider)
+        slider_layout.addWidget(label_widget)
+        slider_widget.setLayout(slider_layout)
+
         # Create the toolbar.
         toolbar = NavigationToolbar(figure.canvas, self)
         save_roi_button = QPushButton('Save ROI')
@@ -41,6 +65,7 @@ class SelectRoi(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(select_canvas)
         layout.addWidget(toolbar)
+        layout.addWidget(slider_widget)
         layout.addWidget(save_roi_button)
         self.setLayout(layout)
 
