@@ -152,7 +152,6 @@ class PlotMap(QWidget):
     def max_histogram_slider_update(self, val):
         self.max_label_widget.setText('MAX<br>' + str(val))
         self.histogram_slider_udpate()
-        # pass
 
     def histogram_slider_udpate(self):
         self.axes.cla()
