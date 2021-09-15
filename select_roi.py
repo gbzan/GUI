@@ -92,12 +92,6 @@ class SelectRoi(QWidget):
         if ok:
             if roi_name in self.data.roi_names:
                 QMessageBox.critical(box, 'Error','Name existed! Please give it an unique name.')
-                # error_box = QMessageBox()
-                # error_box.setWindowTitle('Error')
-                # error_box.setText('Name existed! Please give it an unique name.')
-                # error_box.setIcon(error_box.Critical)
-                # error_box.exec_()
-                # error_box.buttonClicked.connect(show_box)
             else:
                 parent.addChild(RoiTreeItem(parent, self.data, roi_name, self.selected_pixels))
                 self.data.roi_names.add(roi_name)
